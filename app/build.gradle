@@ -56,5 +56,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
-    implementation group: 'pl.puretech', name: 'scanner-api', version: '1.1.2'
+    implementation group: 'pl.puretech', name: 'scanner-api', version: '2.1.0'
 }

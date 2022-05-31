@@ -35,6 +35,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import pl.puretech.scanner.api.definition.Api;
 import pl.puretech.scanner.api.enums.ProductionType;
 import pl.puretech.scanner.api.enums.ScannerMode;
 import pl.puretech.scanner.api.enums.ScannerOperationType;
@@ -131,19 +132,21 @@ try {
             System.out.println("Full match: " + checkingMatcher.group(1));
         }
 
+        Long timestamp = System.currentTimeMillis();
+
         if (Integer.valueOf(checkingMatcher.group(1)) == 0) {
             String employee = matcher.group(1);
             StateHolder.INSTANCE.setEmployeeCode(employee);
 
-            String url = "https://192.168.42.182:8443/scanner/api/v1/scan";
+            String url = "https://192.168.42.182:8443" + Api.Service.PREFIX + "/scan";
             //request body
             ScannerPacket packet_for_employee = new ScannerPacket();
             packet_for_employee.setUuid(UUID.fromString("cb953a41-eccb-48ce-9376-f65ce6c7c910"));
             packet_for_employee.setScannerMode(ScannerMode.valueOf("PRODUCTION"));
             packet_for_employee.setOperationType(ScannerOperationType.valueOf("SCAN"));
             packet_for_employee.setProductionType(ProductionType.valueOf("PIECEWORK"));
-            packet_for_employee.setTimestamp(Long.valueOf("1634287093068"));
-            packet_for_employee.setEmployee(StateHolder.INSTANCE.getEmployeeCode()); //   ^\*\.([0-9])\.([0-9]{3,4})\/.+\*$     -->poprawiony -->   ^\*\.([0-9])\.
+            packet_for_employee.setTimestamp(timestamp);
+            packet_for_employee.setEmployeeCode(StateHolder.INSTANCE.getEmployeeCode()); //   ^\*\.([0-9])\.([0-9]{3,4})\/.+\*$     -->poprawiony -->   ^\*\.([0-9])\.
 
             final String mRequestBody = new Gson().toJson(packet_for_employee);
 
@@ -209,15 +212,15 @@ try {
             String workStation = matcher.group(1);
             StateHolder.INSTANCE.setStationCode(workStation);
 
-            String url = "https://192.168.42.182:8443/scanner/api/v1/scan";
+            String url = "https://192.168.42.182:8443" + Api.Service.PREFIX + "/scan";
             ScannerPacket packet_for_employee = new ScannerPacket();
             packet_for_employee.setUuid(UUID.fromString("cb953a41-eccb-48ce-9376-f65ce6c7c910"));
             packet_for_employee.setScannerMode(ScannerMode.valueOf("PRODUCTION"));
             packet_for_employee.setOperationType(ScannerOperationType.valueOf("SCAN"));
             packet_for_employee.setProductionType(ProductionType.valueOf("PIECEWORK"));
-            packet_for_employee.setTimestamp(Long.valueOf("1634287093068"));
-            packet_for_employee.setEmployee(StateHolder.INSTANCE.getEmployeeCode());
-            packet_for_employee.setStation(StateHolder.INSTANCE.getStationCode()); //problem : co dać w argumencie tej funkcji setStation()
+            packet_for_employee.setTimestamp(timestamp);
+            packet_for_employee.setEmployeeCode(StateHolder.INSTANCE.getEmployeeCode());
+            packet_for_employee.setStationCode(StateHolder.INSTANCE.getStationCode()); //problem : co dać w argumencie tej funkcji setStation()
 
             final String mRequestBody = new Gson().toJson(packet_for_employee);
 
@@ -280,18 +283,19 @@ try {
 
         } else if (Integer.valueOf(checkingMatcher.group(1)) == 2) {
 
-            String payload = scan_code;
+            String payload = matcher.group(1);
+            StateHolder.INSTANCE.setPayloadCode(payload);
 
-            String url = "https://192.168.42.182:8443/scanner/api/v1/scan";
+            String url = "https://192.168.42.182:8443" + Api.Service.PREFIX + "/scan";
             ScannerPacket packet_for_employee = new ScannerPacket();
             packet_for_employee.setUuid(UUID.fromString("cb953a41-eccb-48ce-9376-f65ce6c7c910"));
             packet_for_employee.setScannerMode(ScannerMode.valueOf("PRODUCTION"));
             packet_for_employee.setOperationType(ScannerOperationType.valueOf("SCAN"));
             packet_for_employee.setProductionType(ProductionType.valueOf("PIECEWORK"));
-            packet_for_employee.setTimestamp(Long.valueOf("1634287093068"));
-            packet_for_employee.setEmployee(StateHolder.INSTANCE.getEmployeeCode());
-            packet_for_employee.setStation(StateHolder.INSTANCE.getStationCode());
-            packet_for_employee.setPayload(payload);
+            packet_for_employee.setTimestamp(timestamp);
+            packet_for_employee.setEmployeeCode(StateHolder.INSTANCE.getEmployeeCode());
+            packet_for_employee.setStationCode(StateHolder.INSTANCE.getStationCode());
+            packet_for_employee.setProductionOrderNumber(StateHolder.INSTANCE.getPayloadCode()); // payload jest w formie "*.2.KOD.*" a my chcemy miec z tego sam "KOD"
 
             final String mRequestBody = new Gson().toJson(packet_for_employee);
 

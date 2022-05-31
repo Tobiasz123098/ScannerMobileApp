@@ -6,6 +6,7 @@ public class StateHolder {
 
     private String employeeCode;
     private String stationCode;
+    private String payloadCode;
 
     public String getEmployeeCode() {
         return employeeCode;
@@ -21,5 +22,13 @@ public class StateHolder {
 
     public void setStationCode(String stationCode) {
         this.stationCode = stationCode;
+    }
+
+    public String getPayloadCode() {
+        return payloadCode;
+    }
+
+    public void setPayloadCode(String payloadCode) {
+        this.payloadCode = payloadCode;
     }
 }
