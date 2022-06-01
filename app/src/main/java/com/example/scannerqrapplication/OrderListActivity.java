@@ -1,9 +1,12 @@
 package com.example.scannerqrapplication;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -14,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,12 +26,36 @@ import pl.puretech.scanner.api.definition.Api;
 public class OrderListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    OrderListAdapter orderListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
+
         UnsafeOkHttpClient.nuke();
+
+//        testing purposes
+        ArrayList<String> animalNames = new ArrayList<>();
+        animalNames.add("Horse");
+        animalNames.add("Cow");
+        animalNames.add("Camel");
+        animalNames.add("Sheep");
+        animalNames.add("Goat");
+
+
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        orderListAdapter = new OrderListAdapter(this, animalNames);
+        orderListAdapter.setClickListener(new OrderListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getApplicationContext(), "You clicked, test", Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerView.setAdapter(orderListAdapter);
+
 
         RequestQueue listQueue = Volley.newRequestQueue(this);
         String url = "https://192.168.42.182:8443/scanner/api/v2/in_queue?station_code=006&page=1&size=10";
