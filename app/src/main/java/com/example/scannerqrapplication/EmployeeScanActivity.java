@@ -62,6 +62,7 @@ try {
         e.printStackTrace();
     }*/
     Button employeeScan;
+    Button listButton;
     TextView employeeTextView;
     TextView employeeStaticText;
     TextView stationStaticText;
@@ -85,6 +86,14 @@ try {
         stationTextView = findViewById(R.id.stationTextView);
         payloadStaticView = findViewById(R.id.payloadStaticText);
         payloadTextView = findViewById(R.id.payloadTextView);
+        listButton = findViewById(R.id.listButton);
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent listIntent = new Intent(getApplicationContext(), OrderListActivity.class);
+                startActivity(listIntent);
+            }
+        });
     }
 
     @Override

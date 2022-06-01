@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_employee_scan.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23333333333333334" />
+        <entry key="app/src/main/res/layout/activity_order_list.xml" value="0.44583333333333336" />
         <entry key="app/src/main/res/layout/activity_start_scan.xml" value="0.4328125" />
         <entry key="app/src/main/res/layout/activity_work_station_scan.xml" value="0.44583333333333336" />
       </map>
