@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -26,32 +25,36 @@
 
             <TextView
                 android:id="@+id/productNameTextView"
-                android:layout_width="133dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="Nazwa"
-                android:textColor="@color/black"
+                android:text="productName"
+                android:textAlignment="viewStart"
                 app:autoSizeMaxTextSize="16sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
+                android:textColor="@color/black"
                 app:autoSizeTextType="uniform"
-                android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/operationNameTextView"
+                android:id="@+id/statusTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_toEndOf="@+id/productNameTextView"
-                android:text="Ilosc"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
                 android:textColor="@color/black"
+                android:layout_marginEnd="0dp"
+                android:layout_toEndOf="@+id/productNameTextView"
+                android:text="status"
+                android:textAlignment="viewEnd"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/productNameTextView"
                 app:layout_constraintStart_toEndOf="@id/productNameTextView"
                 app:layout_constraintTop_toTopOf="@+id/productNameTextView" />
+
 
         </RelativeLayout>
 
@@ -61,22 +64,35 @@
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/terminPlainText"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Termin"
-                android:textColor="#0F66B4"
-                android:textSize="16dp" />
+                android:layout_marginHorizontal="0dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/completionTerm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="Etap produkcji"
-                android:textColor="@color/black"
-                android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/productionOrderNumberTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="productionOrderNumber"
+                    android:textAlignment="viewStart"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/completionTerm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/productionOrderNumberTextView"
+                    android:text="completion term"
+                    android:textAlignment="viewEnd"
+                    android:textSize="16dp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -86,16 +102,69 @@
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/productionOrderNumberTextView"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Etap produkcji"
+                android:layout_marginHorizontal="0dp"
+                android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/operationNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="operationName"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 app:autoSizeMaxTextSize="160sp"
                 app:autoSizeMinTextSize="6sp"
                 app:autoSizeStepGranularity="2sp"
                 app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/remainingCountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toStartOf="@+id/zWordTextView"
+                    android:layout_toEndOf="@+id/operationNameTextView"
+                    android:text="remainingCount"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/black"
+                    app:autoSizeMaxTextSize="160sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/zWordTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toStartOf="@+id/totalCountTextView"
+                    android:text=" z "
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/black"
+                    app:autoSizeMaxTextSize="160sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/totalCountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="0dp"
+                    android:text="totalCount"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/black"
+                    app:autoSizeMaxTextSize="160sp"
+                    app:autoSizeMinTextSize="6sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

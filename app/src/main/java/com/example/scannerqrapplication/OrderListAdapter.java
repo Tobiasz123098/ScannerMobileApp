@@ -36,9 +36,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 //        holder.elementTextView.setText(animal);
         OrdersData ordersDataAdapter = parsingData.get(position);
         holder.productNameTextView.setText(ordersDataAdapter.getProductName());
-        holder.operationNameTextView.setText(ordersDataAdapter.getOperationName());
+        holder.statusTextView.setText(ordersDataAdapter.getStatus());
+        holder.productionOrderNumber.setText(ordersDataAdapter.getProductionOrderNumber());
         holder.completionTerm.setText(ordersDataAdapter.getCompletionTerm());
-        holder.productionOrderNumberTextView.setText(ordersDataAdapter.getProductionOrderNumber());
+        holder.operationName.setText(ordersDataAdapter.getOperationName());
+        holder.remainingCount.setText(ordersDataAdapter.getRemainingCount());
+        holder.totalCount.setText(ordersDataAdapter.getTotalCount());
     }
 
     // total number of rows
@@ -51,18 +54,22 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView productNameTextView;
-        TextView operationNameTextView;
-        TextView terminPlainText;
+        TextView statusTextView;
+        TextView productionOrderNumber;
         TextView completionTerm;
-        TextView productionOrderNumberTextView;
+        TextView operationName;
+        TextView remainingCount;
+        TextView totalCount;
 
         ViewHolder(View itemView) {
             super(itemView);
             productNameTextView = itemView.findViewById(R.id.productNameTextView);
-            operationNameTextView = itemView.findViewById(R.id.operationNameTextView);
-            terminPlainText = itemView.findViewById(R.id.terminPlainText);
+            statusTextView = itemView.findViewById(R.id.statusTextView);
+            productionOrderNumber = itemView.findViewById(R.id.productionOrderNumberTextView);
             completionTerm = itemView.findViewById(R.id.completionTerm);
-            productionOrderNumberTextView = itemView.findViewById(R.id.productionOrderNumberTextView);
+            operationName = itemView.findViewById(R.id.operationNameTextView);
+            remainingCount = itemView.findViewById(R.id.remainingCountTextView);
+            totalCount = itemView.findViewById(R.id.totalCountTextView);
             itemView.setOnClickListener(this);
         }
 

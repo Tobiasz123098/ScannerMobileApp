@@ -65,7 +65,7 @@ public class OrderListActivity extends AppCompatActivity {
                     JSONArray array=jsonObject.getJSONArray("content");
                     for (int i=0; i<array.length(); i++){
                         JSONObject object = array.getJSONObject(i);
-                        OrdersData ordersData = new OrdersData(object.getString("operationName"),object.getString("productName"), object.getString("productionOrderNumber"), object.getString("completionTerm"));
+                        OrdersData ordersData = new OrdersData(object.getString("operationName"),object.getString("productName"), object.getString("productionOrderNumber"), object.getString("completionTerm"), object.getString("remainingCount"), object.getString("totalCount"), object.getString("status"));
                         jsonArrayList.add(ordersData);
                     }
                     recyclerView.setAdapter(orderListAdapter);
