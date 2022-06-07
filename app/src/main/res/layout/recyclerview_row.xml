@@ -25,15 +25,17 @@
 
             <TextView
                 android:id="@+id/productNameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="214dp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
+                android:layout_marginEnd="112dp"
+                android:layout_toStartOf="@+id/statusTextView"
+                android:maxLines="3"
                 android:text="productName"
                 android:textAlignment="viewStart"
+                android:textColor="@color/black"
                 app:autoSizeMaxTextSize="16sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="2sp"
-                android:textColor="@color/black"
                 app:autoSizeTextType="uniform"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,12 +46,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="0dp"
-                android:textColor="@color/black"
                 android:layout_marginEnd="0dp"
-                android:layout_toEndOf="@+id/productNameTextView"
                 android:text="status"
                 android:textAlignment="viewEnd"
+                android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/productNameTextView"
                 app:layout_constraintStart_toEndOf="@id/productNameTextView"
@@ -80,7 +80,7 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:id="@+id/completionTerm"
+                    android:id="@+id/productionPlanDateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

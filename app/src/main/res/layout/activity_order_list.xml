@@ -7,15 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".OrderListActivity">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id = "@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp" />
+
 </RelativeLayout>

@@ -4,16 +4,16 @@ public class OrdersData {
     private String operationName;
     private String productName;
     private String productionOrderNumber;
-    private String completionTerm;
+    private String productionPlanDateTime;
     private String remainingCount;
     private String totalCount;
     private String status;
 
-    public OrdersData(String operationName, String productName, String productionOrderNumber, String completionTerm, String remainingCount, String totalCount, String status) {
+    public OrdersData(String operationName, String productName, String productionOrderNumber, String productionPlanDateTime, String remainingCount, String totalCount, String status) {
         this.operationName = operationName;
         this.productName = productName;
         this.productionOrderNumber = productionOrderNumber;
-        this.completionTerm = completionTerm;
+        this.productionPlanDateTime = productionPlanDateTime;
         this.remainingCount = remainingCount;
         this.totalCount = totalCount;
         this.status = status;
@@ -31,8 +31,8 @@ public class OrdersData {
         return productionOrderNumber;
     }
 
-    public String getCompletionTerm() {
-        return completionTerm;
+    public String getProductionPlanDateTime() {
+        return productionPlanDateTime;
     }
 
     public String getRemainingCount() {
