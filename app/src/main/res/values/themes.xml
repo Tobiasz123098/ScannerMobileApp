@@ -1,6 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"> <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
-        <item name="android:fontFamily">@font/italic</item>
-    </style>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
 
     <style name="Theme.ScannerQRApplication" parent="Theme.MaterialComponents.Light.NoActionBar">

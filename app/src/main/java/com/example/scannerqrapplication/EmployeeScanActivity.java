@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -42,25 +41,25 @@ import pl.puretech.scanner.api.enums.ScannerOperationType;
 import pl.puretech.scanner.api.request.ScannerPacket;
 
 public class EmployeeScanActivity extends AppCompatActivity implements View.OnClickListener {
-/*
-try {
-        // if your response is { },you can use JSONObject
-        JSONObject jsonObject = new JSONObject(response);
-        // then find the foods tag in your json data
+    /*
+    try {
+            // if your response is { },you can use JSONObject
+            JSONObject jsonObject = new JSONObject(response);
+            // then find the foods tag in your json data
 
 
-        JSONArray employeeArray = jsonObject.getJSONArray("employee");
-        // loop for the JSONArray
-        for (int j = 0; j < employeeArray.length(); j++) {
-            // getJSONObject from the index again
-            JSONObject jsonObject2 = employeeArray.getJSONObject(j);
-            // get value
-            String value = jsonObject2.getString("name");
-        }
+            JSONArray employeeArray = jsonObject.getJSONArray("employee");
+            // loop for the JSONArray
+            for (int j = 0; j < employeeArray.length(); j++) {
+                // getJSONObject from the index again
+                JSONObject jsonObject2 = employeeArray.getJSONObject(j);
+                // get value
+                String value = jsonObject2.getString("name");
+            }
 
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }*/
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
     Button employeeScan;
     Button listButton;
     TextView employeeTextView;
@@ -164,7 +163,7 @@ try {
 
                 try {
                     JSONObject json = new JSONObject(response);
-                    JSONObject employeeObject =  json.getJSONObject("employee");
+                    JSONObject employeeObject = json.getJSONObject("employee");
                     String name = employeeObject.getString("name");
                     employeeTextView.setText(name);
                 } catch (JSONException e) {
@@ -241,7 +240,7 @@ try {
                     JSONObject workStationObject = json.getJSONObject("station");
                     String workStationObjectString = workStationObject.getString("name");
                     stationTextView.setText(workStationObjectString);
-                }catch(JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -316,7 +315,7 @@ try {
                     JSONObject payloadObject = json.getJSONObject("operation");
                     String payloadObjectString = payloadObject.getString("productName");
                     payloadTextView.setText(payloadObjectString);
-                }catch(JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -370,3 +369,25 @@ try {
         }
     }
 }
+
+
+
+/*
+    private productionOrderStatusToColor(productionOrderStatus) :string{
+        switch(productionOrderStatus){
+        case'WITHHELD':return UNSETTLED_100
+        case'DELETED':return RECOURSE_100
+        case'WITHDRAWN':return WITHDRAWN_100
+        case'IN_QUEUE':return NEUTRAL_50
+        case'PENDING':return NEUTRAL_100
+        case'CANCELLED':return RECOURSE_100
+        case'IN_PROGRESS':return PRODUCTION_100
+        case'DONE':return PROGRESS_75
+        case'IN_STOCK':return STOCK_100
+        case'SENT':return PROGRESS_100
+        case'RETURNED':return RECOURSE_50
+default:return NEUTRAL_50
+        }
+        }
+*/
+

@@ -1,16 +1,12 @@
 package com.example.scannerqrapplication;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -18,7 +14,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -27,8 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +34,6 @@ public class OrderListActivity extends AppCompatActivity{
     RecyclerView recyclerView;
     OrderListAdapter orderListAdapter;
     ArrayList<OrdersData> jsonArrayList;
-    private Parcelable recyclerViewState;
 
     EndlessRecyclerViewScrollListener scrollListener;
 
@@ -99,8 +91,6 @@ public class OrderListActivity extends AppCompatActivity{
                         JSONObject object = array.getJSONObject(i);
                         OrdersData ordersData = new OrdersData(object.getString("operationName"),object.getString("productName"), object.getString("productionOrderNumber"),
                                 object.getString("productionPlanDateTime"), object.getString("remainingCount"), object.getString("totalCount"), object.getString("status"));
-
-                        //String result = URLEncoder.encode(String.valueOf(ordersData), "UTF-8")
 
                         jsonArrayList.add(ordersData);
                     }

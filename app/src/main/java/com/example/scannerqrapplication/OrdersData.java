@@ -8,6 +8,7 @@ public class OrdersData {
     private String remainingCount;
     private String totalCount;
     private String status;
+    private boolean isExpanded;
 
     public OrdersData(String operationName, String productName, String productionOrderNumber, String productionPlanDateTime, String remainingCount, String totalCount, String status) {
         this.operationName = operationName;
@@ -17,6 +18,14 @@ public class OrdersData {
         this.remainingCount = remainingCount;
         this.totalCount = totalCount;
         this.status = status;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
     public String getOperationName() {
