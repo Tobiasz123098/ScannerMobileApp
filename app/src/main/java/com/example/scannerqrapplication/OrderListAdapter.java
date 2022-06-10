@@ -34,14 +34,15 @@ import java.util.List;
 import java.util.Map;
 
 import pl.puretech.scanner.api.definition.Api;
+import pl.puretech.scanner.api.response.OperationDto;
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.ViewHolder> {
-    private List<OrdersData> parsingData;
+    private List<ExtendedOperationDto> parsingData;
     private LayoutInflater myInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    OrderListAdapter(Context context, List<OrdersData> data) {
+    OrderListAdapter(Context context, List<ExtendedOperationDto> data) {
         this.myInflater = LayoutInflater.from(context);
         this.parsingData = data;
     }
@@ -57,100 +58,38 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        OrdersData ordersDataAdapter = parsingData.get(position);
+        ExtendedOperationDto extendedOperationDto = parsingData.get(position);
 
         //cutting off minutes and seconds of date
-        String date = ordersDataAdapter.getProductionPlanDateTime();
+        String date = extendedOperationDto.getProductionPlanDateTime();
         String parsedDate[] = date.split(" ");
         String finalDateResult = parsedDate[0];
 
-        List<ConfiguraitonNestedData> configuraitonList = new ArrayList<>();
-        holder.child_rv.setHasFixedSize(true);
-        OrderListChildAdapter childAdapter = new OrderListChildAdapter(configuraitonList, myInflater.getContext());
+        OrderListChildAdapter childAdapter = new OrderListChildAdapter(extendedOperationDto.getConfiguration(), myInflater.getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(myInflater.getContext());
         holder.child_rv.setLayoutManager(layoutManager);
         holder.child_rv.setAdapter(childAdapter);
-        childAdapter.notifyDataSetChanged();
 
-
-        UnsafeOkHttpClient.nuke();
-        RequestQueue listQueue = Volley.newRequestQueue(myInflater.getContext());
-
-        String url = "https://192.168.42.182:8443" + Api.Service.PREFIX + "/in_queue?station_code=" + StateHolder.INSTANCE.getStationCode() + "&page=1" + "&size=10";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray array = jsonObject.getJSONArray("content");
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
-                        JSONArray nestedArray = object.getJSONArray("configuration");
-                        for (int j = 0; j < nestedArray.length(); j++) {
-                            JSONObject resultObject = nestedArray.getJSONObject(j);
-                            ConfiguraitonNestedData ordersData = new ConfiguraitonNestedData(resultObject.getString("parentName"), resultObject.getString("valueName"));
-                            configuraitonList.add(ordersData);
-                            childAdapter.notifyDataSetChanged();
-                        }
-                    }
-
-//                    holder.child_rv.setAdapter(new OrderListChildAdapter(configuraitonList, myInflater.getContext()));
-//                    childAdapter.notifyDataSetChanged();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(myInflater.getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-
-            @Override
-            public String getBodyContentType() {
-                return "application/json; charset=utf-8";
-            }
-
-            @Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                String responseString = "";
-                if (response != null) {
-                    responseString = new String(response.data, StandardCharsets.UTF_8);
-                }
-                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("X-Auth-Token", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqa293YWwifQ.fG6fPXANjS3aqd_gslMh57AE56rakPiqvEXyqEO9zUqys2ArpuVziJvPZ1rpWpezdiD4hXgy5MTuJQhKlM6Dhg");
-                return params;
-            }
-        };
-
-        listQueue.add(stringRequest);
-
-        holder.productNameTextView.setText(ordersDataAdapter.getProductName());
-        holder.statusTextView.setText(ordersDataAdapter.getStatus());
-        holder.productionOrderNumber.setText(ordersDataAdapter.getProductionOrderNumber());
+        holder.productNameTextView.setText(extendedOperationDto.getProductName());
+        holder.statusTextView.setText(extendedOperationDto.getStatus());
+        holder.productionOrderNumber.setText(extendedOperationDto.getProductionOrderNumber());
         holder.productionPlanDateTime.setText(finalDateResult);
-        holder.operationName.setText(ordersDataAdapter.getOperationName());
-        holder.remainingCount.setText(ordersDataAdapter.getRemainingCount());
-        holder.totalCount.setText(ordersDataAdapter.getTotalCount());
+        holder.operationName.setText(extendedOperationDto.getOperationName());
+        holder.remainingCount.setText(String.valueOf(extendedOperationDto.getRemainingCount()));
+        holder.totalCount.setText(String.valueOf(extendedOperationDto.getTotalCount()));
 
         holder.productNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ordersDataAdapter.setExpanded(!ordersDataAdapter.isExpanded());
+
+                extendedOperationDto.setExpanded(!extendedOperationDto.isExpanded());
                 notifyItemChanged(position);
             }
         });
 
         boolean isExpandedL = parsingData.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpandedL ? View.VISIBLE : View.GONE);
+
     }
 
     // total number of rows

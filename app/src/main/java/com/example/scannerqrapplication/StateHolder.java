@@ -1,5 +1,8 @@
 package com.example.scannerqrapplication;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StateHolder {
 
     public static final StateHolder INSTANCE = new StateHolder();
@@ -40,4 +43,5 @@ public class StateHolder {
     public void setPageNumber(String pageNumber) {
         this.pageNumber = pageNumber;
     }
+
 }

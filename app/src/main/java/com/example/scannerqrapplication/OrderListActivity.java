@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import pl.puretech.scanner.api.definition.Api;
@@ -33,7 +35,8 @@ public class OrderListActivity extends AppCompatActivity{
 
     RecyclerView recyclerView;
     OrderListAdapter orderListAdapter;
-    ArrayList<OrdersData> jsonArrayList;
+    List<ExtendedOperationDto> operations;
+    ArrayList<ExtendedOperationDto> arrayList;
 
     EndlessRecyclerViewScrollListener scrollListener;
 
@@ -45,8 +48,8 @@ public class OrderListActivity extends AppCompatActivity{
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        jsonArrayList = new ArrayList<>();
-
+        operations = new ArrayList<>();
+        arrayList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -61,7 +64,7 @@ public class OrderListActivity extends AppCompatActivity{
         };
 
         recyclerView.setOnScrollListener(scrollListener);
-        orderListAdapter = new OrderListAdapter(this, jsonArrayList);
+        orderListAdapter = new OrderListAdapter(this, arrayList);
         recyclerView.setAdapter(orderListAdapter);
 
         /*orderListAdapter.setClickListener(new OrderListAdapter.ItemClickListener() {
@@ -84,17 +87,17 @@ public class OrderListActivity extends AppCompatActivity{
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+
+
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     JSONArray array=jsonObject.getJSONArray("content");
-                    for (int i=0; i<array.length(); i++){
-                        JSONObject object = array.getJSONObject(i);
-                        OrdersData ordersData = new OrdersData(object.getString("operationName"),object.getString("productName"), object.getString("productionOrderNumber"),
-                                object.getString("productionPlanDateTime"), object.getString("remainingCount"), object.getString("totalCount"), object.getString("status"));
+//                    JSONArray arrayConfiguration = jsonObject.getJSONArray("configuration");
 
-                        jsonArrayList.add(ordersData);
-                    }
-                    //to make recycler view save current scroll state and not come back to starting position in every refresh
+                    arrayList.addAll(JSONUtils.mapToPojoList(array, new TypeReference<List<ExtendedOperationDto>>() {}));
+                    operations.addAll(JSONUtils.mapToPojoList(array, new TypeReference<List<ExtendedOperationDto>>() {}));
+
                     Parcelable recyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
                     orderListAdapter.notifyDataSetChanged();
                     recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);

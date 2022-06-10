@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import pl.puretech.scanner.api.response.OperationDto.ConfigurationEntry;
+
 public class OrderListChildAdapter extends RecyclerView.Adapter<OrderListChildAdapter.ViewHolder>{
 
-    private List<ConfiguraitonNestedData> confNestedData;
+    private List<ConfigurationEntry> confNestedData;
     private Context context;
 
-    public OrderListChildAdapter(List<ConfiguraitonNestedData> confNestedData, Context context) {
+    public OrderListChildAdapter(List<ConfigurationEntry> confNestedData, Context context) {
         this.confNestedData = confNestedData;
         this.context = context;
     }
@@ -32,7 +34,7 @@ public class OrderListChildAdapter extends RecyclerView.Adapter<OrderListChildAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ConfiguraitonNestedData item = confNestedData.get(position);
+        ConfigurationEntry item = confNestedData.get(position);
         holder.parentNameTextView.setText(item.getParentName());
         holder.valueNameTextView.setText(item.getValueName());
     }
