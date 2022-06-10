@@ -47,7 +47,10 @@
                 android:layout_toEndOf="@+id/parentNameTextView"
                 android:text="Value Name"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintBottom_toBottomOf="@+id/parentNameTextView"
                 app:layout_constraintStart_toEndOf="@id/parentNameTextView"
                 app:layout_constraintTop_toTopOf="@+id/parentNameTextView" />

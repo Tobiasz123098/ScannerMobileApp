@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -78,7 +79,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         holder.remainingCount.setText(String.valueOf(extendedOperationDto.getRemainingCount()));
         holder.totalCount.setText(String.valueOf(extendedOperationDto.getTotalCount()));
 
-        holder.productNameTextView.setOnClickListener(new View.OnClickListener() {
+        holder.clickToExpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -112,6 +113,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         TextView operationName;
         TextView remainingCount;
         TextView totalCount;
+        CardView clickToExpand;
         RecyclerView child_rv;
         ConstraintLayout expandableLayout;
 
@@ -126,6 +128,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
             totalCount = itemView.findViewById(R.id.totalCountTextView);
             child_rv = itemView.findViewById(R.id.child_rv);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
+            clickToExpand = itemView.findViewById(R.id.clickToExpand);
             itemView.setOnClickListener(this);
         }
 
